@@ -52,8 +52,36 @@ function getDayMenu(day){
   return data.menu;
 }
 
+function findById(id) {
+  const foundPizza =  data.menu.pizzas.find(pizza => pizza.id === id)
+
+  if(foundPizza){
+    return foundPizza;
+  }
+
+  const foundDrink = data.menu.drinks.find(drink => drink.id === id);
+
+  if(foundDrink){
+    return foundDrink;
+  }
+
+  throw new Error('Produto não encontrado');
+}
+
+function getSharedBill(ordersIDs, qtd){
+  const total = ordersIDs.reduce((acc, order) => {
+    const product = findById(order.id);
+    const totalProductPrice = product.price * order.qtd;
+
+    return acc + totalProductPrice;
+  }, 0);
+
+  return total / qtd; 
+}
+
 module.exports = {
   getSandwichPrice,
   getDayMenu,
-  getDiscountedMenu
+  getDiscountedMenu,
+  getSharedBill,
 }

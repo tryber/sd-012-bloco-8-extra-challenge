@@ -1,5 +1,4 @@
 const { it, expect } = require('@jest/globals');
-const data = require('../data');
 const { getSandwichPrice } = require('../src/challenges');
 
 describe('1. Quanto custa o sanduíche trybe?', () => {
