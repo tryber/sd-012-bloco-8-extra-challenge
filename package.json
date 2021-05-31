@@ -1,0 +1,26 @@
+{
+  "name": "bloco-8-challenge",
+  "version": "1.0.0",
+  "description": "## Requisitos",
+  "main": "data.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/betrybe/bloco-8-extra-challenge.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/betrybe/bloco-8-extra-challenge/issues"
+  },
+  "homepage": "https://github.com/betrybe/bloco-8-extra-challenge#readme",
+  "devDependencies": {
+    "jest": "^27.0.3"
+  }
+}
