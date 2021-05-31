@@ -30,6 +30,30 @@ function getSandwichPrice(sandwichName){
   throw new Error('Sanduíche não encontrado');
 }
 
+function getDiscountedMenu(){
+  const discount = 0.1;
+
+  const pizzasDiscounted = data.menu.pizzas.map(pizza => ({
+    ...pizza,
+    price: pizza.price - (pizza.price * discount),
+  }))
+
+  return {
+    ...data.menu,
+    pizzas: pizzasDiscounted
+  }
+}
+
+function getDayMenu(day){
+  if(data.saleDays.includes(day)){
+    return getDiscountedMenu();
+  }
+
+  return data.menu;
+}
+
 module.exports = {
-  getSandwichPrice
+  getSandwichPrice,
+  getDayMenu,
+  getDiscountedMenu
 }

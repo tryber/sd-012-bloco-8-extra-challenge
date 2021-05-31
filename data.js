@@ -66,14 +66,7 @@ const data = {
       },
     ]
   },
-  sales: {
-    monday: {
-      name: 'Pizza 10% OFF',
-    },
-    tuesday: {
-      name: 'Deliver OFF',
-    },
-  },
+  saleDays: ['Monday', 'Tuesday'],
   premade: {
     sandwichs: [
       {
