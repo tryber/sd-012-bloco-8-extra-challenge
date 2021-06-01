@@ -96,11 +96,16 @@ function makeSandwich(items) {
     .reduce((acc, item) => acc + item.price, 0);
 }
 
+function getCheapestPizza(price) {
+  return data.menu.pizzas.filter(pizza => pizza.price < price);
+}
+
 module.exports = {
   getSandwichPrice,
   getDayMenu,
   getDiscountedMenu,
   getSharedBill,
-  makeSandwich
+  makeSandwich,
+  getCheapestPizza
 }
 
