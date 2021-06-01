@@ -6,11 +6,11 @@
 // 6.Retornar lanches e preço dos combos
 const data = require('../data');
 
-function getIngredientsPrice(ingredients){
+function getIngredientsPrice(ingredients) {
   return ingredients.reduce((acc, id) => {
     const ingredient = data.menu.sandwichItems.find(ingredient => ingredient.id === id);
 
-    if(ingredient){
+    if (ingredient) {
       return ingredient.price + acc;
     }
 
@@ -18,10 +18,10 @@ function getIngredientsPrice(ingredients){
   }, 0)
 }
 
-function getSandwichPrice(sandwichName){
+function getSandwichPrice(sandwichName) {
   const sandwich = data.premade.sandwichs.find(sandwich => sandwich.name === sandwichName);
 
-  if(sandwich) {
+  if (sandwich) {
     const price = getIngredientsPrice(sandwich.ingredients);
 
     return price;
@@ -30,7 +30,7 @@ function getSandwichPrice(sandwichName){
   throw new Error('Sanduíche não encontrado');
 }
 
-function getDiscountedMenu(){
+function getDiscountedMenu() {
   const discount = 0.1;
 
   const pizzasDiscounted = data.menu.pizzas.map(pizza => ({
@@ -44,8 +44,8 @@ function getDiscountedMenu(){
   }
 }
 
-function getDayMenu(day){
-  if(data.saleDays.includes(day)){
+function getDayMenu(day) {
+  if (data.saleDays.includes(day)) {
     return getDiscountedMenu();
   }
 
@@ -53,22 +53,22 @@ function getDayMenu(day){
 }
 
 function findById(id) {
-  const foundPizza =  data.menu.pizzas.find(pizza => pizza.id === id)
+  const foundPizza = data.menu.pizzas.find(pizza => pizza.id === id)
 
-  if(foundPizza){
+  if (foundPizza) {
     return foundPizza;
   }
 
   const foundDrink = data.menu.drinks.find(drink => drink.id === id);
 
-  if(foundDrink){
+  if (foundDrink) {
     return foundDrink;
   }
 
   throw new Error('Produto não encontrado');
 }
 
-function getSharedBill(ordersIDs, qtd){
+function getSharedBill(ordersIDs, qtd) {
   const total = ordersIDs.reduce((acc, order) => {
     const product = findById(order.id);
     const totalProductPrice = product.price * order.qtd;
@@ -76,7 +76,24 @@ function getSharedBill(ordersIDs, qtd){
     return acc + totalProductPrice;
   }, 0);
 
-  return total / qtd; 
+  return total / qtd;
+}
+
+function reduceSandwichItemsToObject() {
+  return data.menu.sandwichItems
+    .reduce((acc, item) => ({ ...acc, [item.name]: item }), {});
+}
+
+function makeSandwich(items) {
+  const sandwichItems = reduceSandwichItemsToObject();
+
+  if (items.some(item => !sandwichItems[item])) {
+    throw new Error(`Pedido inválido`);
+  }
+
+  return items
+    .map(item => ({ ...sandwichItems[item] }))
+    .reduce((acc, item) => acc + item.price, 0);
 }
 
 module.exports = {
@@ -84,4 +101,6 @@ module.exports = {
   getDayMenu,
   getDiscountedMenu,
   getSharedBill,
+  makeSandwich
 }
+
