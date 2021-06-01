@@ -79,13 +79,14 @@ function getSharedBill(ordersIDs, qtd) {
   return total / qtd;
 }
 
-function reduceSandwichItemsToObject() {
-  return data.menu.sandwichItems
+function reduceArrayToObject(array, prop) {
+  return array
     .reduce((acc, item) => ({ ...acc, [item.name]: item }), {});
 }
 
+
 function makeSandwich(items) {
-  const sandwichItems = reduceSandwichItemsToObject();
+  const sandwichItems = reduceArrayToObject(data.menu.sandwichItems);
 
   if (items.some(item => !sandwichItems[item])) {
     throw new Error(`Pedido inválido`);
@@ -100,12 +101,58 @@ function getCheapestPizza(price) {
   return data.menu.pizzas.filter(pizza => pizza.price < price);
 }
 
+function getSandwichById(id) {
+  return data.premade.sandwichs.find(sand => sand.id === id);
+}
+
+function getDrinkById(id) {
+  return data.menu.drinks.find(drink => drink.id === id);
+}
+
+function getPizzaById(id) {
+  return data.menu.pizzas.find(pizza => pizza.id === id);
+}
+
+function reduceItemsId(itemsId) {
+  return itemsId.reduce((items, id) => {
+    const sandwich = getSandwichById(id);
+    const drink = getDrinkById(id);
+    const pizza = getPizzaById(id);
+    let price = 0;
+
+    if (sandwich) {
+      items.sandwich = sandwich.name;
+      price = price + getSandwichPrice(sandwich.name);
+    }
+    if (drink) {
+      items.drink = drink.name;
+      price = price + drink.price;
+    }
+    if (pizza) {
+      items.pizza = pizza.name;
+      price = price + pizza.price;
+    }
+    items.price = items.price + price;
+    return items;
+  }, { price: 0 })
+}
+
+function getComboSandwichsAndPrices() {
+  const { combos } = data.premade;
+
+  return combos.map((combo) => ({
+    name: combo.name,
+    ...reduceItemsId(combo.items)
+  }))
+}
+
 module.exports = {
   getSandwichPrice,
   getDayMenu,
   getDiscountedMenu,
   getSharedBill,
   makeSandwich,
-  getCheapestPizza
+  getCheapestPizza,
+  getComboSandwichsAndPrices
 }
 
