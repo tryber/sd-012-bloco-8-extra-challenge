@@ -149,7 +149,6 @@ function getComboSandwichsAndPrices() {
 module.exports = {
   getSandwichPrice,
   getDayMenu,
-  getDiscountedMenu,
   getSharedBill,
   makeSandwich,
   getCheapestPizza,
