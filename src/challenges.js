@@ -62,7 +62,34 @@ function getDayMenu(day) {
   return data.menu;
 }
 
-function getSharedBill(ordersIDs, qtd) {}
+function findById(id) {
+  const foundPizza = data.menu.pizzas.find((pizza) => pizza.id === id);
+
+  if (foundPizza) {
+    return foundPizza;
+  }
+
+  const foundDrink = data.menu.drinks.find((drink) => drink.id === id);
+  return foundDrink;
+}
+
+function getSharedBill(ordersIDs, qtd) {
+  /**
+   *
+   * 5 Requisito getSharedBill
+   *  - encontre pelo id, se o pedido é pizza ou um drink
+   *  - a partir do produto encontrado (pizza ou drink) faca a somatorio dos valores
+   *  - com o valor total calculado, divida pelo numero de pessoas
+   */
+  const total = ordersIDs.reduce((acc, order) => {
+    const product = findById(order.id);
+    const totalProductPrice = product.price * order.qtd;
+
+    return acc + totalProductPrice;
+  }, 0);
+
+  return total / qtd;
+}
 
 function findIngredientByName(ingredientName) {
   return data.menu.sandwichItems.find((item) => item.name === ingredientName);
