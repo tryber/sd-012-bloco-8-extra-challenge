@@ -8,6 +8,8 @@ Implemente a função `getSandwichPrice`.
 
 Ela deve receber o nome de um sanduíche e, com base nos seus ingredientes, calcula seu preço final. O preço deve ser a soma do preço de cada ingrediente.
 
+Se o sanduíche não existir, deve retornar a frase "Sanduíche não encontrado".
+
 ### 2. Montar e validar sanduíche recebendo ingredientes e retornar o preço
 
 Implemente a função `makeSandwich`.
