@@ -6,16 +6,7 @@
 // 6.Retornar lanches e preço dos combos
 const data = require("../data");
 
-/**
- *
- * 1 Requisito getSandwichPrice
- *  - encontre o sandwich
- *  - encontre os ingredients do sandwich
- *      - a partir de um id, encontre um ingrediente
- *  - a partir dos ingredientes do sandwich encontrar o preco final
- */
-
-function findIngredient(id) {
+function findIngredientById(id) {
   return data.menu.sandwichItems.find((item) => item.id === id);
 }
 
@@ -26,6 +17,14 @@ function findSandwichByName(sandwichName) {
 }
 
 function getSandwichPrice(sandwichName) {
+  /**
+   *
+   * 1 Requisito getSandwichPrice
+   *  - encontre o sandwich
+   *  - encontre os ingredients do sandwich
+   *      - a partir de um id, encontre um ingrediente
+   *  - a partir dos ingredientes do sandwich encontrar o preco final
+   */
   const sandwich = findSandwichByName(sandwichName);
 
   if (!sandwich) {
@@ -35,7 +34,7 @@ function getSandwichPrice(sandwichName) {
   const ingredients = sandwich.ingredients;
 
   const precoFinal = ingredients.reduce((accumulator, itemArray) => {
-    const ingredienteProcurado = findIngredient(itemArray);
+    const ingredienteProcurado = findIngredientById(itemArray);
     return ingredienteProcurado.price + accumulator;
   }, 0);
 
@@ -46,7 +45,22 @@ function getDayMenu(day) {}
 
 function getSharedBill(ordersIDs, qtd) {}
 
-function makeSandwich(items) {}
+function findIngredientByName(ingredientName) {
+  return data.menu.sandwichItems.find((item) => item.name === ingredientName);
+}
+
+function makeSandwich(items) {
+  /**
+   *
+   * 2 Requisito makeSandwich
+   *  - encontre o ingrediente pelo nome
+   *  - a partir dos ingredientes do sandwich encontrar o preco final
+   */
+  return items.reduce((acc, itemName) => {
+    const foundItem = findIngredientByName(itemName);
+    return foundItem.price + acc;
+  }, 0);
+}
 
 function getCheapestPizza(price) {}
 
