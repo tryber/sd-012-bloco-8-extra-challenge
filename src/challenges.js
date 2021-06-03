@@ -117,7 +117,60 @@ function getCheapestPizza(price) {
   return data.menu.pizzas.filter((pizza) => pizza.price < price);
 }
 
-function getComboSandwichsAndPrices() {}
+function getSandwichById(id) {
+  return data.premade.sandwichs.find((sand) => sand.id === id);
+}
+
+function getDrinkById(id) {
+  return data.menu.drinks.find((drink) => drink.id === id);
+}
+
+function getPizzaById(id) {
+  return data.menu.pizzas.find((pizza) => pizza.id === id);
+}
+
+function reduceItemsId(itemsId) {
+  return itemsId.reduce(
+    (accumulator, id) => {
+      const sandwich = getSandwichById(id);
+      const drink = getDrinkById(id);
+      const pizza = getPizzaById(id);
+      let price = 0;
+
+      if (sandwich) {
+        accumulator.sandwich = sandwich.name;
+        price = price + getSandwichPrice(sandwich.name);
+      }
+      if (drink) {
+        accumulator.drink = drink.name;
+        price = price + drink.price;
+      }
+      if (pizza) {
+        accumulator.pizza = pizza.name;
+        price = price + pizza.price;
+      }
+      accumulator.price = accumulator.price + price;
+      return items;
+    },
+    { price: 0 }
+  );
+}
+
+function getComboSandwichsAndPrices() {
+  /**
+   *
+   * 5 Requisito getComboSandwichsAndPrices
+   *  - para cada item do combo, encontre se ele é uma pizza, drink ou item do sandwich
+   *  - pega o preco desse item e guarde num objeto
+   *  - retorne o objeto com os items pedidos e o preco total deles
+   */
+  const { combos } = data.premade;
+
+  return combos.map((combo) => ({
+    name: combo.name,
+    ...reduceItemsId(combo.items),
+  }));
+}
 
 module.exports = {
   getSandwichPrice,
