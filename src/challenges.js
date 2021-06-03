@@ -81,7 +81,14 @@ function makeSandwich(items) {
   }, 0);
 }
 
-function getCheapestPizza(price) {}
+function getCheapestPizza(price) {
+  /**
+   *
+   * 4 Requisito getCheapestPizza
+   *  - filtrar as pizzas
+   */
+  return data.menu.pizzas.filter((pizza) => pizza.price < price);
+}
 
 function getComboSandwichsAndPrices() {}
 
