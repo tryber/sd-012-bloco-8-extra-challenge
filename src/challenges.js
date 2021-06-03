@@ -41,7 +41,26 @@ function getSandwichPrice(sandwichName) {
   return precoFinal;
 }
 
-function getDayMenu(day) {}
+function getDayMenu(day) {
+  /**
+   *
+   * 3 Requisito getDayMenu
+   *  - encontre o dia dentro do array de saleDays e retorna o menu
+   *  - diminui o preco dos items em 10% se o dia nao existe no saleDays
+   */
+  const isDayInSaleDays = data.saleDays.some((itemArray) => itemArray === day);
+
+  if (isDayInSaleDays) {
+    //Adiciona o desconto
+    const discount = 0.1; // 10%
+    data.menu.pizzas = data.menu.pizzas.map((itemMenu) => ({
+      ...itemMenu,
+      price: itemMenu.price - itemMenu.price * discount,
+    }));
+  }
+
+  return data.menu;
+}
 
 function getSharedBill(ordersIDs, qtd) {}
 

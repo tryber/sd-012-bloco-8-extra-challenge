@@ -20,7 +20,7 @@ Ela deve receber um array de ingredientes e retornar o preço total do sanduích
 
 Implemente a função `getDayMenu`.
 
-Ela deve receber um dia da semana e retornar o cardápio do dia.
+Ela deve receber um dia da semana e retornar o todo o menu.
 
 - Se esse dia constar nas promoções, deverá ser retornado o menu com um desconto de 10% aplicado nas pizzas.
 - Se o dia não constar, deverá ser retornado o menu padrão.
